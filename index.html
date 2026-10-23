@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Habiba Akbar | AI Engineer & Web Developer</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+
+        <nav class="navbar">
+            <a href="#home" class="logo">Habiba<span>.</span></a>
+
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu"
+                aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+                ☀️
+            </button>
+        </nav>
+
+    </header>
+    <main>
+
+
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <p class="intro">HELLO, I'M HABIBA AKBAR</p>
+
+                <h1>
+                    Building the Future with
+                    <span>AI & Web Development</span>
+                </h1>
+
+                <p class="hero-text">
+                    I am an IT graduate passionate about Artificial Intelligence,
+                    intelligent automation, and modern web applications.
+                    I enjoy building practical solutions that solve real-world problems.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">Explore My Work</a>
+
+                    <a href="resume.pdf" class="btn btn-outline" download>
+                        Download Resume ↓
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="about" class="about-section">
+            <div class="section-heading">
+                <p class="section-label">GET TO KNOW ME</p>
+                <h2>About Me</h2>
+                <p>A little about my journey in technology.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>Who I Am</h3>
+
+                    <p>
+                        I am a BS Information Technology graduate from
+                        the University of Malakand, passionate about
+                        Artificial Intelligence and Web Development.
+                    </p>
+
+                    <p>
+                        I enjoy building web applications, exploring
+                        AI-powered solutions, and learning new
+                        technologies to solve real-world problems.
+                    </p>
+
+                    <p>
+                        My goal is to create useful, reliable, and
+                        user-friendly digital experiences.
+                    </p>
+                </div>
+
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <h3>AI Development</h3>
+                        <p>Exploring intelligent applications and AI agents.</p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h3>Web Development</h3>
+                        <p>Building responsive websites and web applications.</p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h3>Continuous Learning</h3>
+                        <p>Improving my skills through hands-on projects.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="skills" class="skills-section">
+            <div class="section-heading">
+                <p class="section-label">WHAT I WORK WITH</p>
+                <h2>My Technical Skills</h2>
+                <p>Technologies I use and explore through projects.</p>
+            </div>
+
+            <div class="skills-grid" id="skills-grid">
+                <div class="skill-card">
+                    <span class="skill-icon">🐍</span>
+                    <h3>Python</h3>
+                    <p>Programming & AI applications</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🤖</span>
+                    <h3>Artificial Intelligence</h3>
+                    <p>Generative AI & AI agents</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🌐</span>
+                    <h3>HTML & CSS</h3>
+                    <p>Web structure & styling</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">⚡</span>
+                    <h3>JavaScript</h3>
+                    <p>Interactive web experiences</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🔧</span>
+                    <h3>Node.js & Express</h3>
+                    <p>Backend web development</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🗄️</span>
+                    <h3>Databases</h3>
+                    <p>SQLite & MongoDB</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🧠</span>
+                    <h3>LangGraph</h3>
+                    <p>AI workflow orchestration</p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-icon">🎨</span>
+                    <h3>Streamlit</h3>
+                    <p>Interactive Python applications</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="projects" class="projects-section">
+            <div class="section-heading">
+                <p class="section-label">MY PORTFOLIO</p>
+                <h2>Featured Projects</h2>
+                <p>Some applications and tools I have built.</p>
+            </div>
+
+            <div class="projects-grid" id="projects-grid">
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🏥</span>
+                        <span class="project-category">AI + Healthcare</span>
+                    </div>
+                    <h3>MedRoute AI</h3>
+                    <p>Hospital appointment management with doctor schedules,
+                        database-verified availability and AI workflow orchestration.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Streamlit</span>
+                        <span>LangGraph</span><span>SQLite</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/medroute-ai" class="project-link" target="_blank"
+                        rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🔧</span>
+                        <span class="project-category">Web Development</span>
+                    </div>
+                    <h3>Repair Hub</h3>
+                    <p>A repair service management application for managing
+                        customers, technicians and repair services.</p>
+                    <div class="tech-tags">
+                        <span>Node.js</span><span>Express.js</span>
+                        <span>MongoDB</span><span>JavaScript</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/Repair-Hub" class="project-link" target="_blank"
+                        rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">📚</span>
+                        <span class="project-category">Generative AI</span>
+                    </div>
+                    <h3>AI Study Pack Generator</h3>
+                    <p>Generates study materials, flashcards, MCQs and
+                        practice questions with AI.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Streamlit</span><span>Groq API</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/AI-Study-Pack-Generator" class="project-link"
+                        target="_blank" rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🥗</span>
+                        <span class="project-category">AI Assistant</span>
+                    </div>
+                    <h3>NutriGuide AI</h3>
+                    <p>An AI-powered project designed to provide personalized
+                        nutrition guidance.</p>
+                    <div class="tech-tags">
+                        <span>Python</span><span>Streamlit</span><span>Generative AI</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/NutriGuide-AI" class="project-link" target="_blank"
+                        rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">✍️</span>
+                        <span class="project-category">AI + Web</span>
+                    </div>
+                    <h3>AI Content Assistant</h3>
+                    <p>An AI content creation tool for helping users draft
+                        and improve written content.</p>
+                    <div class="tech-tags">
+                        <span>AI</span><span>Web Development</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/ai-content-assistant" class="project-link" target="_blank"
+                        rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">📄</span>
+                        <span class="project-category">Career Tech</span>
+                    </div>
+                    <h3>Resume ATS Analyzer</h3>
+                    <p>A resume analysis tool designed to help users review
+                        resumes and improve ATS compatibility.</p>
+                    <div class="tech-tags">
+                        <span>AI</span><span>Resume Analysis</span>
+                    </div>
+                    <a href="#" class="project-link">View Project ↗</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🧵</span>
+                        <span class="project-category">Development</span>
+                    </div>
+                    <h3>Thread Lens</h3>
+                    <p>A project exploring thread-based content and
+                        information. More details coming soon.</p>
+                    <div class="tech-tags">
+                        <span>Project Details To Be Added</span>
+                    </div>
+                    <a href="#" class="project-link">View Project ↗</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">⚙️</span>
+                        <span class="project-category">Development</span>
+                    </div>
+                    <h3>The Elegant Machinery</h3>
+                    <p>A software project. Its detailed description and
+                        technology stack will be added after confirmation.</p>
+                    <div class="tech-tags">
+                        <span>Project Details To Be Added</span>
+                    </div>
+                    <a href="#" class="project-link">View Project ↗</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🧮</span>
+                        <span class="project-category">JavaScript</span>
+                    </div>
+                    <h3>Calculator</h3>
+                    <p>A simple calculator interface for performing
+                        everyday mathematical calculations.</p>
+                    <div class="tech-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+
+                    <a href="https://github.com/habibaakbar/calculator" class="project-link" target="_blank"
+                        rel="noopener noreferrer">
+                        View Project ↗
+                    </a>
+
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">⏱️</span>
+                        <span class="project-category">JavaScript</span>
+                    </div>
+                    <h3>Stopwatch</h3>
+                    <p>A timer application with stopwatch controls for
+                        tracking elapsed time.</p>
+                    <div class="tech-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <a href="#" class="project-link">View Project ↗</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-icon">🌦️</span>
+                        <span class="project-category">Web Application</span>
+                    </div>
+                    <h3>Weather App</h3>
+                    <p>A weather application for exploring weather
+                        information. API features can be added to this description.</p>
+                    <div class="tech-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <a href="#" class="project-link">View Project ↗</a>
+                </article>
+
+            </div>
+        </section>
+
+
+
+<section id="certificates" class="certificates-section">
+    <div class="section-heading">
+        <p class="section-label">MY ACHIEVEMENTS</p>
+        <h2>Certificates & Certifications</h2>
+        <p>Courses, training and achievements in AI and software development.</p>
+    </div>
+
+    <div class="certificates-grid" id="certificates-grid">
+        <p class="certificates-loading">Loading certificates...</p>
+    </div>
+</section>
+
+
+
+
+        <section id="contact" class="contact-section">
+
+            <!-- Section heading: outside the two-column container -->
+            <div class="section-heading">
+                <p class="section-label">GET IN TOUCH</p>
+                <h2>Contact Me</h2>
+                <p>Have a project or opportunity in mind? Let's connect.</p>
+            </div>
+
+            <!-- Two-column content starts here -->
+            <div class="contact-container">
+
+                <!-- Left Side -->
+                <div class="contact-info">
+                    <h3>Let's Work<br>Together</h3>
+
+                    <p class="contact-description">
+                        I am interested in AI development, web development,
+                        internships, and opportunities to build useful products.
+                    </p>
+
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">✉</div>
+                        <div>
+                            <span>Email</span>
+                            <a href="mailto:habibaakbar4466@gmail.com">
+                                habibaakbar4466@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">⌖</div>
+                        <div>
+                            <span>Location</span>
+                            <p>Swat, Pakistan / Remote</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-social-area">
+                        <p>Follow me</p>
+                        <div class="contact-socials">
+
+                            <a href="https://github.com/habibaakbar" target="_blank" rel="noopener noreferrer"
+                                aria-label="GitHub" title="GitHub">
+
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                                    <path
+                                        d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.24-1.62-1.24-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.71-1.49-2.48-.28-5.09-1.24-5.09-5.5 0-1.21.43-2.2 1.15-2.98-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.98 0 4.27-2.61 5.21-5.1 5.49.4.35.75 1.02.75 2.06v3.09c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+                                </svg>
+
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/habiba-akbar-5962a8253/" target="_blank"
+                                rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Contact Form -->
+                <div class="contact-form-card">
+                    <h3>Send a Message</h3>
+
+                    <form id="contact-form" class="contact-form">
+                        <div class="contact-fields-row">
+                            <div class="contact-field">
+                                <label for="contact-name">Your Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="Your full name"
+                                    maxlength="100" required>
+                            </div>
+
+                            <div class="contact-field">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" name="email" placeholder="you@example.com"
+                                    maxlength="254" required>
+                            </div>
+                        </div>
+
+                        <div class="contact-field">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" name="subject" placeholder="Project inquiry"
+                                maxlength="150" required>
+                        </div>
+
+                        <div class="contact-field">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message"
+                                placeholder="Tell me about your project or idea..." rows="5" maxlength="5000"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="contact-submit" id="send-message-btn">
+                            <span>➤</span>
+                            <span class="submit-label">Send Message</span>
+                        </button>
+
+                        <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <a href="#home" class="footer-brand">
+                    Habiba<span> Akbar.</span>
+                </a>
+
+                <p class="footer-tagline">
+                    Building meaningful experiences with AI & Web Development.
+                </p>
+
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="https://github.com/habibaakbar" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub profile">GitHub ↗</a>
+
+                    <a href="https://www.linkedin.com/in/habiba-akbar-5962a8253/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn ↗</a>
+                </div>
+
+                <div class="footer-divider"></div>
+
+                <p class="footer-copyright">
+                    © 2026 Habiba Akbar. All rights reserved.
+                </p>
+                <a href="#home" class="back-to-top">Back to top ↑</a>
+            </div>
+        </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habiba | Portfolio Admin</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #080d1a;
+            color: #f1f5ff;
+            min-height: 100vh;
+        }
+        button, input { font: inherit; }
+        button { cursor: pointer; }
+        .hidden { display: none !important; }
+        .login-wrap {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+        .login-card, .panel {
+            background: #111c31;
+            border: 1px solid #283653;
+            border-radius: 18px;
+            padding: 28px;
+        }
+        .login-card { width: 100%; max-width: 420px; }
+        h1, h2, p { margin-top: 0; }
+        h1 span { color: #a78bfa; }
+        .muted { color: #a7b2c8; line-height: 1.6; }
+        label { display: block; margin: 16px 0 7px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 9px;
+            border: 1px solid #344361;
+            background: #080d1a;
+            color: #fff;
+        }
+        .btn {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 16px;
+            background: linear-gradient(100deg, #6366f1, #8b5cf6);
+            color: white;
+            font-weight: 600;
+        }
+        .full { width: 100%; margin-top: 20px; }
+        .message { margin-top: 14px; color: #fca5a5; }
+        .layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+        aside {
+            padding: 28px 18px;
+            border-right: 1px solid #283653;
+            background: #0e1628;
+        }
+        .brand { font-size: 23px; font-weight: bold; margin-bottom: 35px; }
+        .brand span { color: #a78bfa; }
+        .nav-btn {
+            width: 100%;
+            text-align: left;
+            padding: 13px;
+            margin: 4px 0;
+            border: 0;
+            border-radius: 9px;
+            color: #cbd5e1;
+            background: transparent;
+        }
+        .nav-btn.active, .nav-btn:hover { background: #202d49; color: white; }
+        main { padding: 32px; min-width: 0; }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-number { font-size: 30px; font-weight: bold; color: #a78bfa; }
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .record-list { display: grid; gap: 12px; }
+        .record {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 16px;
+            background: #0e1628;
+            border: 1px solid #283653;
+            border-radius: 12px;
+            min-width: 0;
+        }
+        .record p { margin: 5px 0 0; overflow-wrap: anywhere; }
+        .record-actions { display: flex; gap: 8px; flex-shrink: 0; }
+        .small-btn {
+            padding: 8px 11px;
+            border: 1px solid #465574;
+            border-radius: 7px;
+            background: #17233a;
+            color: #fff;
+        }
+        .danger { border-color: #7f1d1d; color: #fca5a5; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 16px;
+        }
+        .span-2 { grid-column: 1 / -1; }
+        .form-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .empty { color: #a7b2c8; padding: 20px 0; }
+        @media (max-width: 760px) {
+            .layout { grid-template-columns: 1fr; }
+            aside { padding: 15px; border-right: 0; border-bottom: 1px solid #283653; }
+            .brand { margin-bottom: 14px; }
+            main { padding: 18px; }
+            .stats { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .span-2 { grid-column: auto; }
+            .topbar, .section-head { align-items: flex-start; flex-wrap: wrap; }
+            .record { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<section id="login-view" class="login-wrap">
+    <form id="login-form" class="login-card">
+        <h1>Habiba<span>.</span> Admin</h1>
+        <p class="muted">Sign in to manage your portfolio content.</p>
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="btn full" type="submit">Sign In</button>
+        <p id="login-message" class="message" role="alert"></p>
+    </form>
+</section>
+
+<div id="dashboard-view" class="layout hidden">
+    <aside>
+        <div class="brand">Habiba<span>.</span></div>
+        <button class="nav-btn active" data-page="overview">Overview</button>
+        <button class="nav-btn" data-page="projects">Projects</button>
+        <button class="nav-btn" data-page="skills">Skills</button>
+        <button class="nav-btn" data-page="certificates">Certificates</button>
+        <button class="nav-btn" data-page="messages">Contact Messages</button>
+        <p style="margin-top:28px">
+            <button id="logout-btn" class="nav-btn">Log out ↗</button>
+        </p>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <div>
+                <p class="muted">PORTFOLIO MANAGEMENT</p>
+                <h1 id="page-title">Overview</h1>
+            </div>
+            <a href="/" target="_blank" rel="noopener noreferrer" class="muted">View Portfolio ↗</a>
+        </header>
+
+        <section id="overview-page">
+            <div class="stats">
+                <article class="panel"><p class="muted">Projects</p><div id="project-count" class="stat-number">0</div></article>
+                <article class="panel"><p class="muted">Skills</p><div id="skill-count" class="stat-number">0</div></article>
+                <article class="panel"><p class="muted">Certificates</p><div id="certificate-count" class="stat-number">0</div></article>
+            </div>
+            <article class="panel">
+                <h2>Welcome back!</h2>
+                <p class="muted">Manage your portfolio content here. Changes will be stored in your database.</p>
+            </article>
+        </section>
+
+        <section id="manager-page" class="hidden">
+            <article class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2 id="manager-title">Projects</h2>
+                        <p class="muted">Add new content or update an existing record.</p>
+                    </div>
+                    <button id="add-btn" class="btn">+ Add New</button>
+                </div>
+                <div id="record-list" class="record-list"></div>
+            </article>
+
+            <article id="editor-panel" class="panel hidden" style="margin-top:20px">
+                <h2 id="editor-title">Add item</h2>
+                <form id="item-form">
+                    <div id="form-fields" class="form-grid"></div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Save</button>
+                        <button type="button" id="cancel-btn" class="small-btn">Cancel</button>
+                    </div>
+                    <p id="form-message" class="message" role="alert"></p>
+                </form>
+            </article>
+        </section>
+        <p id="global-message" class="message" role="status"></p>
+    </main>
+</div>
+
+<script>
+const $ = (selector) => document.querySelector(selector);
+
+let currentPage = "overview";
+let editingId = null;
+let records = [];
+
+const configs = {
+    projects: {
+        title: "Projects",
+        count: "project-count",
+        fields: [
+            ["title", "Project title", "text", true],
+            ["description", "Description", "textarea", true],
+            ["technologies", "Technologies (comma-separated)", "text"],
+            ["github_url", "GitHub URL", "url"],
+            ["live_url", "Live demo URL", "url"],
+            ["icon", "Card icon (emoji)", "text"],
+            ["category", "Category", "text"]
+        ],
+        label: item => item.title,
+        detail: item => item.description
+    },
+    skills: {
+        title: "Skills",
+        count: "skill-count",
+        fields: [
+            ["name", "Skill name", "text", true],
+            ["description", "Description", "textarea"],
+            ["icon", "Skill icon (emoji)", "text"],
+            ["sort_order", "Display order (number)", "number"]
+        ],
+        label: item => item.name,
+        detail: item => item.description
+    },
+    certificates: {
+        title: "Certificates",
+        count: "certificate-count",
+        fields: [
+            ["title", "Certificate name", "text", true],
+            ["organization", "Issuing organization", "text"],
+            ["issue_date", "Issue date", "date"],
+            ["credential_url", "Credential URL", "url"],
+            ["image_url", "Certificate image URL", "url"],
+            ["description", "Description", "textarea"]
+        ],
+        label: item => item.title,
+        detail: item => item.organization
+    }
+};
+
+async function api(url, options = {}) {
+    const response = await fetch(url, {
+        credentials: "same-origin",
+        ...options,
+        headers: {
+            ...(options.body ? { "Content-Type": "application/json" } : {}),
+            ...options.headers
+        }
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        if (response.status === 401) showLogin();
+        throw new Error(data.error || "Something went wrong.");
+    }
+    return data;
+}
+
+function showLogin() {
+    $("#login-view").classList.remove("hidden");
+    $("#dashboard-view").classList.add("hidden");
+}
+
+function showDashboard() {
+    $("#login-view").classList.add("hidden");
+    $("#dashboard-view").classList.remove("hidden");
+}
+
+$("#login-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    $("#login-message").textContent = "";
+
+    try {
+        await api("/api/login", {
+            method: "POST",
+            body: JSON.stringify({
+                username: $("#username").value.trim(),
+                password: $("#password").value
+            })
+        });
+        $("#password").value = "";
+        showDashboard();
+        await navigate("overview");
+    } catch (error) {
+        $("#login-message").textContent = error.message;
+    }
+});
+
+$("#logout-btn").addEventListener("click", async () => {
+    try { await api("/api/logout", { method: "POST" }); } catch {}
+    showLogin();
+});
+
+async function refreshCounts() {
+    const [projects, skills, certificates] = await Promise.all([
+        api("/api/projects"), api("/api/skills"), api("/api/certificates")
+    ]);
+    $("#project-count").textContent = projects.length;
+    $("#skill-count").textContent = skills.length;
+    $("#certificate-count").textContent = certificates.length;
+}
+
+async function navigate(page) {
+    currentPage = page;
+    editingId = null;
+    $("#editor-panel").classList.add("hidden");
+    $("#global-message").textContent = "";
+
+    document.querySelectorAll(".nav-btn[data-page]").forEach(button => {
+        button.classList.toggle("active", button.dataset.page === page);
+    });
+
+    const isOverview = page === "overview";
+    $("#overview-page").classList.toggle("hidden", !isOverview);
+    $("#manager-page").classList.toggle("hidden", isOverview);
+$("#page-title").textContent =
+    isOverview ? "Overview" :
+    page === "messages" ? "Contact Messages" :
+    configs[page].title;
+
+    if (isOverview) {
+    await refreshCounts();
+} else {
+    $("#manager-title").textContent =
+        page === "messages" ? "Contact Messages" : configs[page].title;
+
+    if (page === "messages") {
+        $("#add-btn").classList.add("hidden");
+        await loadContactMessages();
+    } else {
+        $("#add-btn").classList.remove("hidden");
+        await loadRecords();
+    }
+}
+}
+
+document.querySelectorAll(".nav-btn[data-page]").forEach(button => {
+    button.addEventListener("click", () => navigate(button.dataset.page));
+});
+
+
+
+async function loadContactMessages() {
+    const messages = await api("/api/contact-messages");
+    const list = $("#record-list");
+
+    list.replaceChildren();
+
+    if (!messages.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "No contact messages received yet.";
+        list.append(empty);
+        return;
+    }
+
+    messages.forEach(message => {
+        const row = document.createElement("article");
+        row.className = "record";
+
+        const info = document.createElement("div");
+
+        const heading = document.createElement("strong");
+        heading.textContent = message.subject || "Contact Message";
+
+        const detail = document.createElement("p");
+        detail.className = "muted";
+        detail.textContent = `From: ${message.name} (${message.email})`;
+
+        const content = document.createElement("p");
+        content.textContent = message.message;
+
+        const date = document.createElement("p");
+        date.className = "muted";
+        date.textContent = `Received: ${message.created_at}`;
+
+        const status = document.createElement("p");
+        status.className = "muted";
+        status.textContent = Number(message.is_read) === 1
+            ? "Status: Read"
+            : "Status: Unread";
+
+        info.append(heading, detail, content, date, status);
+
+        const actions = document.createElement("div");
+        actions.className = "record-actions";
+
+        if (Number(message.is_read) !== 1) {
+            const readButton = document.createElement("button");
+            readButton.className = "small-btn";
+            readButton.textContent = "Mark as Read";
+
+            readButton.addEventListener("click", async () => {
+                try {
+                    await api(
+                        `/api/contact-messages/${message.id}/read`,
+                        { method: "PATCH" }
+                    );
+                    await loadContactMessages();
+                } catch (error) {
+                    alert(error.message || "Could not mark message as read.");
+                }
+            });
+
+            actions.append(readButton);
+        }
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "small-btn danger";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", async () => {
+            if (!confirm("Are you sure you want to delete this message?")) {
+                return;
+            }
+
+            try {
+                await api(
+                    `/api/contact-messages/${message.id}`,
+                    { method: "DELETE" }
+                );
+                await loadContactMessages();
+            } catch (error) {
+                alert(error.message || "Could not delete message.");
+            }
+        });
+
+        actions.append(deleteButton);
+        row.append(info, actions);
+        list.append(row);
+    });
+}
+
+
+async function loadRecords() {
+    const config = configs[currentPage];
+    records = await api(`/api/${currentPage}`);
+    $("#record-list").replaceChildren();
+
+    if (!records.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "No items yet. Click Add New to create your first item.";
+        $("#record-list").append(empty);
+        return;
+    }
+
+    records.forEach(item => {
+        const row = document.createElement("article");
+        row.className = "record";
+
+        const info = document.createElement("div");
+        const heading = document.createElement("strong");
+        heading.textContent = config.label(item) || "Untitled";
+        const detail = document.createElement("p");
+        detail.className = "muted";
+        detail.textContent = config.detail(item) || "";
+        info.append(heading, detail);
+
+        const actions = document.createElement("div");
+        actions.className = "record-actions";
+
+        const edit = document.createElement("button");
+        edit.className = "small-btn";
+        edit.textContent = "Edit";
+        edit.addEventListener("click", () => openEditor(item));
+
+        const remove = document.createElement("button");
+        remove.className = "small-btn danger";
+        remove.textContent = "Delete";
+        remove.addEventListener("click", () => deleteRecord(item.id));
+
+        actions.append(edit, remove);
+        row.append(info, actions);
+        $("#record-list").append(row);
+    });
+}
+
+function openEditor(item = null) {
+    editingId = item ? item.id : null;
+    const config = configs[currentPage];
+    $("#editor-title").textContent = `${item ? "Edit" : "Add"} ${config.title}`;
+    $("#form-message").textContent = "";
+    $("#form-fields").replaceChildren();
+
+    config.fields.forEach(([key, label, type, required]) => {
+        const wrapper = document.createElement("div");
+        if (type === "textarea") wrapper.className = "span-2";
+
+        const fieldLabel = document.createElement("label");
+        fieldLabel.textContent = label;
+        fieldLabel.htmlFor = `field-${key}`;
+
+        const input = document.createElement(type === "textarea" ? "textarea" : "input");
+        input.id = `field-${key}`;
+        input.name = key;
+        input.type = type === "textarea" ? undefined : type;
+        input.required = Boolean(required);
+        input.value = item?.[key] ?? (key === "icon" ? "💻" : key === "sort_order" ? "0" : "");
+        input.style.width = "100%";
+        if (type === "textarea") {
+            input.rows = 3;
+            input.style.padding = "12px";
+            input.style.borderRadius = "9px";
+            input.style.background = "#080d1a";
+            input.style.color = "#fff";
+            input.style.border = "1px solid #344361";
+        }
+
+        wrapper.append(fieldLabel, input);
+        $("#form-fields").append(wrapper);
+    });
+
+    $("#editor-panel").classList.remove("hidden");
+    $("#editor-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+$("#add-btn").addEventListener("click", () => openEditor());
+$("#cancel-btn").addEventListener("click", () => {
+    $("#editor-panel").classList.add("hidden");
+    editingId = null;
+});
+
+$("#item-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = {};
+
+    configs[currentPage].fields.forEach(([key, , type]) => {
+        const input = $(`#field-${key}`);
+        if (input.value !== "") {
+            data[key] = type === "number" ? Number(input.value) : input.value.trim();
+        }
+    });
+
+    try {
+        const isEditing = editingId !== null;
+        const url = isEditing
+            ? `/api/${currentPage}/${editingId}`
+            : `/api/${currentPage}`;
+
+        await api(url, {
+            method: isEditing ? "PUT" : "POST",
+            body: JSON.stringify(data)
+        });
+
+        $("#editor-panel").classList.add("hidden");
+        $("#global-message").textContent = "Saved successfully.";
+        editingId = null;
+        await loadRecords();
+        await refreshCounts();
+    } catch (error) {
+        $("#form-message").textContent = error.message;
+    }
+});
+
+async function deleteRecord(id) {
+    if (!confirm("Are you sure you want to delete this item?")) return;
+
+    try {
+        await api(`/api/${currentPage}/${id}`, { method: "DELETE" });
+        $("#global-message").textContent = "Item deleted.";
+        await loadRecords();
+        await refreshCounts();
+    } catch (error) {
+        $("#global-message").textContent = error.message;
+    }
+}
+
+(async function init() {
+    try {
+        await api("/api/me");
+        showDashboard();
+        await navigate("overview");
+    } catch {
+        showLogin();
+    }
+})();
+</script>
+</body>
+</html>
