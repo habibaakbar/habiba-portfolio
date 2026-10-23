@@ -20,7 +20,7 @@ const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 console.log(
     "Resend API key configured:",
@@ -326,7 +326,7 @@ ${cleanMessage}`
 
     
     // Send a confirmation email to the visitor using Gmail.
-    
+
     // Visitor confirmation email is temporarily disabled.
     // Contact messages are still saved to the database.
 
