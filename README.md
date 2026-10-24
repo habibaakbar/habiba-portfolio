@@ -35,7 +35,11 @@ My goal is to build practical, user-focused applications that combine clean desi
 - Git and GitHub
 - Visual Studio Code
 - npm
-
+  
+**Integrations**
+- Resend API
+- REST APIs
+  
 ## Project Structure
 
 ```text
