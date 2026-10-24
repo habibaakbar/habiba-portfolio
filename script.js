@@ -97,13 +97,122 @@ async function loadPortfolioData() {
 }
 
 
+
+let allProjects = [];
+
 function renderProjects(projects) {
+    allProjects = Array.isArray(projects) ? projects : [];
+
+    const categoryFilter = document.getElementById(
+        "project-category-filter"
+    );
+    const searchInput = document.getElementById("project-search");
+
+    // Populate categories from the projects loaded from the database.
+    if (categoryFilter) {
+        const categories = [
+            ...new Set(
+                allProjects.map((project) =>
+                    String(project.category || "Project").trim()
+                )
+            )
+        ].sort((a, b) => a.localeCompare(b));
+
+        categoryFilter.replaceChildren();
+
+        const allOption = document.createElement("option");
+        allOption.value = "";
+        allOption.textContent = "All categories";
+        categoryFilter.appendChild(allOption);
+
+        categories.forEach((category) => {
+            const option = document.createElement("option");
+            option.value = category;
+            option.textContent = category;
+            categoryFilter.appendChild(option);
+        });
+
+        if (categoryFilter.dataset.filterBound !== "true") {
+            categoryFilter.addEventListener(
+                "change",
+                renderFilteredProjects
+            );
+            categoryFilter.dataset.filterBound = "true";
+        }
+    }
+
+    // Search as the visitor types.
+    if (
+        searchInput &&
+        searchInput.dataset.filterBound !== "true"
+    ) {
+        searchInput.addEventListener(
+            "input",
+            renderFilteredProjects
+        );
+        searchInput.dataset.filterBound = "true";
+    }
+
+    renderFilteredProjects();
+}
+
+function renderFilteredProjects() {
     const grid = document.getElementById("projects-grid");
     if (!grid) return;
 
+    const searchInput = document.getElementById("project-search");
+    const categoryFilter = document.getElementById(
+        "project-category-filter"
+    );
+    const resultsCount = document.getElementById(
+        "project-results-count"
+    );
+
+    const query = (searchInput?.value || "").trim().toLowerCase();
+    const selectedCategory = categoryFilter?.value || "";
+
+    const filteredProjects = allProjects.filter((project) => {
+        const category = String(project.category || "Project").trim();
+
+        const technologies = Array.isArray(project.technologies)
+            ? project.technologies.join(", ")
+            : String(project.technologies || "");
+
+        const searchableText = [
+            project.title,
+            project.description,
+            category,
+            technologies
+        ]
+            .map((value) => String(value || ""))
+            .join(" ")
+            .toLowerCase();
+
+        return (
+            searchableText.includes(query) &&
+            (!selectedCategory || category === selectedCategory)
+        );
+    });
+
     grid.replaceChildren();
 
-    projects.forEach((project) => {
+    if (resultsCount) {
+        resultsCount.textContent =
+            `Showing ${filteredProjects.length} of ` +
+            `${allProjects.length} projects`;
+    }
+
+    if (filteredProjects.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.className = "project-empty-state";
+        emptyMessage.textContent =
+            "No projects found. Try another search or category.";
+
+        grid.appendChild(emptyMessage);
+        return;
+    }
+
+    filteredProjects.forEach((project) => {
         const card = document.createElement("article");
         card.className = "project-card";
 
@@ -121,15 +230,19 @@ function renderProjects(projects) {
         top.append(icon, category);
 
         const title = document.createElement("h3");
-        title.textContent = project.title;
+        title.textContent = project.title || "";
 
         const description = document.createElement("p");
-        description.textContent = project.description;
+        description.textContent = project.description || "";
 
         const tags = document.createElement("div");
         tags.className = "tech-tags";
 
-        (project.technologies || "")
+        const technologies = Array.isArray(project.technologies)
+            ? project.technologies.join(", ")
+            : String(project.technologies || "");
+
+        technologies
             .split(",")
             .map((tech) => tech.trim())
             .filter(Boolean)
@@ -156,6 +269,7 @@ function renderProjects(projects) {
         grid.appendChild(card);
     });
 }
+
 
 function renderSkills(skills) {
     const grid = document.getElementById("skills-grid");

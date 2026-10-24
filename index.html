@@ -187,6 +187,31 @@
                 <h2>Featured Projects</h2>
                 <p>Some applications and tools I have built.</p>
             </div>
+            
+<div class="project-filters">
+    <label class="project-filter-field" for="project-search">
+        <span>Search projects</span>
+        <input
+            type="search"
+            id="project-search"
+            placeholder="Search name, technology..."
+            autocomplete="off"
+        >
+    </label>
+
+    <label class="project-filter-field" for="project-category-filter">
+        <span>Filter by category</span>
+        <select id="project-category-filter">
+            <option value="">All categories</option>
+        </select>
+    </label>
+</div>
+
+<p
+    id="project-results-count"
+    class="project-results-count"
+    aria-live="polite"
+></p>
 
             <div class="projects-grid" id="projects-grid">
 

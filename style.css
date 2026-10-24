@@ -3717,3 +3717,106 @@ body[data-theme="light"] .hero-buttons .btn:focus-visible {
     outline: 3px solid #b8a7ff;
     outline-offset: 3px;
 }
+
+/* ================================
+   Project Search and Category Filter
+================================ */
+
+.project-filters {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto 14px;
+    padding: 0 8px;
+}
+
+.project-filter-field {
+    display: flex;
+    flex: 1 1 260px;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 360px;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.project-filter-field input,
+.project-filter-field select {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid rgba(127, 127, 127, 0.4);
+    border-radius: 9px;
+    background: rgba(127, 127, 127, 0.08);
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.project-filter-field input::placeholder {
+    color: inherit;
+    opacity: 0.55;
+}
+
+.project-filter-field input:hover,
+.project-filter-field select:hover {
+    border-color: #635bff;
+}
+
+.project-filter-field input:focus,
+.project-filter-field select:focus {
+    border-color: #635bff;
+    box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.15);
+}
+
+.project-filter-field select option {
+    background: #ffffff;
+    color: #222222;
+}
+
+.project-results-count {
+    margin: 0 0 24px;
+    text-align: center;
+    color: inherit;
+    opacity: 0.75;
+    font-size: 14px;
+}
+
+.project-empty-state {
+    grid-column: 1 / -1;
+    padding: 28px 16px;
+    text-align: center;
+    color: inherit;
+    opacity: 0.8;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 600px) {
+    .project-filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 0 4px;
+    }
+
+    .project-filter-field {
+        flex: 1 1 auto;
+        max-width: none;
+        width: 100%;
+    }
+
+    .project-results-count {
+        margin-bottom: 18px;
+    }
+}
