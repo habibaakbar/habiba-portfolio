@@ -26,3 +26,8 @@ npm-debug.log*
 Thumbs.db
 # Temporary email testing
 test-resend.js
+backend/portfolio-export.json
+backend/portfolio-backup.db
+backend/portfolio-export.json
+backend/portfolio-backup.db
+backend/portfolio.db

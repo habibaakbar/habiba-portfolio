@@ -381,3 +381,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateActiveLink();
 });
+
+/* Back to Top button functionality */
+document.addEventListener("DOMContentLoaded", () => {
+    const scrollTopButton = document.getElementById("scroll-top-btn");
+
+    if (!scrollTopButton) return;
+
+    function updateScrollTopButton() {
+        scrollTopButton.classList.toggle(
+            "visible",
+            window.scrollY > 300
+        );
+    }
+
+    window.addEventListener("scroll", updateScrollTopButton, {
+        passive: true
+    });
+
+    scrollTopButton.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+
+    updateScrollTopButton();
+});

@@ -3601,3 +3601,119 @@ body.light-mode .certificates-section .certificate-card a,
     background-color: currentColor;
     border-radius: 2px;
 }
+
+/* Smooth scrolling for navbar navigation */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+/* Keep section headings clear of the navbar */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+
+/* Back to Top button */
+.scroll-top-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: #7c5cff;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(124, 92, 255, 0.3);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease,
+        background 0.25s ease;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: #6845f5;
+    transform: translateY(-3px);
+}
+
+.scroll-top-btn:focus-visible {
+    outline: 3px solid #b8a7ff;
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .scroll-top-btn {
+        right: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* Fix hero button colors in light mode */
+body[data-theme="light"] .hero-buttons .btn,
+body[data-theme="light"] .hero-buttons .btn:visited {
+    background-color: #635bff;
+    color: #ffffff;
+    border-color: #635bff;
+    text-decoration: none;
+}
+
+/* Keep the primary button readable on interaction */
+body[data-theme="light"] .hero-buttons .btn:not(.btn-outline):hover,
+body[data-theme="light"] .hero-buttons .btn:not(.btn-outline):focus,
+body[data-theme="light"] .hero-buttons .btn:not(.btn-outline):active {
+    background-color: #4940dc;
+    color: #ffffff;
+    border-color: #4940dc;
+}
+
+/* Keep outline buttons clear and readable */
+body[data-theme="light"] .hero-buttons .btn-outline,
+body[data-theme="light"] .hero-buttons .btn-outline:visited {
+    background-color: transparent;
+    color: #635bff;
+    border: 1px solid #635bff;
+}
+
+/* Outline buttons become filled purple on hover or click */
+body[data-theme="light"] .hero-buttons .btn-outline:hover,
+body[data-theme="light"] .hero-buttons .btn-outline:focus,
+body[data-theme="light"] .hero-buttons .btn-outline:active {
+    background-color: #635bff;
+    color: #ffffff;
+    border-color: #635bff;
+}
+
+/* Visible keyboard focus */
+body[data-theme="light"] .hero-buttons .btn:focus-visible {
+    outline: 3px solid #b8a7ff;
+    outline-offset: 3px;
+}
