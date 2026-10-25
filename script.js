@@ -496,6 +496,65 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveLink();
 });
 
+/* Copy contact email */
+document.addEventListener("DOMContentLoaded", () => {
+    const copyButton = document.getElementById("copy-email-btn");
+    const emailLink = document.querySelector(
+        '#contact a[href^="mailto:"]'
+    );
+    const status = document.getElementById("copy-email-status");
+
+    if (!copyButton || !emailLink) return;
+
+    copyButton.addEventListener("click", async () => {
+        const email = emailLink.getAttribute("href")
+            .replace(/^mailto:/i, "")
+            .split("?")[0];
+
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(email);
+            } else {
+                const temporaryInput = document.createElement("textarea");
+                temporaryInput.value = email;
+                temporaryInput.style.position = "fixed";
+                temporaryInput.style.opacity = "0";
+
+                document.body.appendChild(temporaryInput);
+                temporaryInput.select();
+
+                const copied = document.execCommand("copy");
+                temporaryInput.remove();
+
+                if (!copied) {
+                    throw new Error("Copy command failed.");
+                }
+            }
+
+            copyButton.textContent = "Copied ✓";
+
+            if (status) {
+                status.textContent = "Email copied to clipboard!";
+            }
+
+        } catch (error) {
+            copyButton.textContent = "Copy failed";
+
+            if (status) {
+                status.textContent =
+                    "Please select and copy the email address manually.";
+            }
+        }
+
+        copyButton.disabled = true;
+
+        setTimeout(() => {
+            copyButton.textContent = "Copy Email";
+            copyButton.disabled = false;
+        }, 2000);
+    });
+});
+
 /* Back to Top button functionality */
 document.addEventListener("DOMContentLoaded", () => {
     const scrollTopButton = document.getElementById("scroll-top-btn");

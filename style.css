@@ -591,6 +591,47 @@ footer {
     gap: 12px;
 }
 
+/* Copy Email button */
+.copy-email-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+border-radius: 50px;
+font-size: 10px;
+line-height: 1.2;
+    border-radius: 7px;
+    background: transparent;
+    color: #8e7ce8;
+    font-family: inherit;
+    
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.copy-email-btn:hover {
+    background: #635bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.copy-email-btn:focus-visible {
+    outline: 3px solid #b8a7ff;
+    outline-offset: 3px;
+}
+
+.copy-email-status {
+    display: block;
+    min-height: 18px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--purple, #635bff);
+}
+
+
 @media (max-width: 600px) {
     .contact-section {
         padding: 55px 6%;
