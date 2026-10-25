@@ -260,7 +260,7 @@ const configs = {
             ["organization", "Issuing organization", "text"],
             ["issue_date", "Issue date", "date"],
             ["credential_url", "Credential URL", "url"],
-            ["image_url", "Certificate image URL", "url"],
+            ["image_url", "Upload certificate image", "file"],
             ["description", "Description", "textarea"]
         ],
         label: item => item.title,
@@ -525,9 +525,14 @@ function openEditor(item = null) {
         input.id = `field-${key}`;
         input.name = key;
         input.type = type === "textarea" ? undefined : type;
-        input.required = Boolean(required);
-        input.value = item?.[key] ?? (key === "icon" ? "💻" : key === "sort_order" ? "0" : "");
-        input.style.width = "100%";
+        input.required = type === "file"
+    ? !item?.[key]
+    : Boolean(required);
+
+if (type !== "file") {
+    input.value = item?.[key] ??
+        (key === "icon" ? "💻" : key === "sort_order" ? "0" : "");
+}
         if (type === "textarea") {
             input.rows = 3;
             input.style.padding = "12px";
@@ -537,7 +542,33 @@ function openEditor(item = null) {
             input.style.border = "1px solid #344361";
         }
 
-        wrapper.append(fieldLabel, input);
+        if (type === "file") {
+    input.accept = "image/jpeg,image/png,image/webp";
+
+    const hint = document.createElement("p");
+    hint.className = "muted";
+    hint.textContent = "JPG, PNG or WebP; maximum 5 MB.";
+
+    wrapper.append(fieldLabel, input);
+
+    if (item?.[key]) {
+        const preview = document.createElement("img");
+        preview.src = item[key];
+        preview.alt = "Current certificate image";
+        preview.style.display = "block";
+        preview.style.maxWidth = "220px";
+        preview.style.maxHeight = "140px";
+        preview.style.objectFit = "contain";
+        preview.style.marginTop = "12px";
+        preview.style.borderRadius = "8px";
+
+        wrapper.appendChild(preview);
+    }
+
+    wrapper.appendChild(hint);
+} else {
+    wrapper.append(fieldLabel, input);
+}
         $("#form-fields").append(wrapper);
     });
 
@@ -555,23 +586,63 @@ $("#item-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = {};
 
-    configs[currentPage].fields.forEach(([key, , type]) => {
-        const input = $(`#field-${key}`);
-        if (input.value !== "") {
-            data[key] = type === "number" ? Number(input.value) : input.value.trim();
-        }
-    });
+   configs[currentPage].fields.forEach(([key, , type]) => {
+    const input = $(`#field-${key}`);
 
-    try {
-        const isEditing = editingId !== null;
-        const url = isEditing
-            ? `/api/${currentPage}/${editingId}`
-            : `/api/${currentPage}`;
+    if (type === "file") return;
 
-        await api(url, {
-            method: isEditing ? "PUT" : "POST",
-            body: JSON.stringify(data)
+    if (input.value !== "") {
+        data[key] = type === "number"
+            ? Number(input.value)
+            : input.value.trim();
+    }
+});
+        if (currentPage === "certificates") {
+    const fileInput = $("#field-image_url");
+
+    const existingItem = editingId !== null
+        ? records.find(item => Number(item.id) === Number(editingId))
+        : null;
+
+    // Keep the existing image when editing without replacing it.
+    if (existingItem?.image_url) {
+        data.image_url = existingItem.image_url;
+    }
+
+    // Upload a newly selected image before saving certificate data.
+    if (fileInput?.files?.[0]) {
+        const formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+
+        const response = await fetch("/api/certificates/upload-image", {
+            method: "POST",
+            credentials: "same-origin",
+            body: formData
         });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(result.error || "Certificate image upload failed.");
+        }
+
+        data.image_url = result.image_url;
+    }
+
+    if (!data.image_url) {
+        throw new Error("Please upload a certificate image.");
+    }
+}
+        try {
+            const isEditing = editingId !== null;
+            const url = isEditing
+                ? `/api/${currentPage}/${editingId}`
+                : `/api/${currentPage}`;
+
+            await api(url, {
+                method: isEditing ? "PUT" : "POST",
+                body: JSON.stringify(data)
+            });
 
         $("#editor-panel").classList.add("hidden");
         $("#global-message").textContent = "Saved successfully.";

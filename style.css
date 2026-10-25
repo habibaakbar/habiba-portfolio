@@ -3545,6 +3545,18 @@ body[data-theme="light"] #contact .contact-socials a:hover {
 }
 
 
+/* Uploaded certificate image */
+.certificate-image {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    padding: 8px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    background: rgba(127, 127, 127, 0.08);
+}
+
 @media (max-width: 600px) {
     .certificates-section {
         padding: 55px 5%;

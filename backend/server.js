@@ -4,7 +4,9 @@ const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 const db = require("./database");
-
+const fs = require("fs");
+const crypto = require("crypto");
+const multer = require("multer");
 // Load .env BEFORE reading environment variables
 require("dotenv").config({
     path: path.join(__dirname, "..", ".env"),
@@ -26,6 +28,56 @@ console.log(
     "Resend API key configured:",
     Boolean(process.env.RESEND_API_KEY)
 );
+
+// Directory for uploaded certificate images
+const certificateUploadDir = path.join(
+    __dirname,
+    "..",
+    "uploads",
+    "certificates"
+);
+
+fs.mkdirSync(certificateUploadDir, { recursive: true });
+
+const allowedImageTypes = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp"
+};
+
+const certificateUpload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, callback) => {
+            callback(null, certificateUploadDir);
+        },
+        filename: (req, file, callback) => {
+            const extension = allowedImageTypes[file.mimetype];
+
+            if (!extension) {
+                return callback(
+                    new Error("Only JPG, PNG and WebP images are allowed.")
+                );
+            }
+
+            callback(
+                null,
+                `certificate-${Date.now()}-${crypto.randomUUID()}${extension}`
+            );
+        }
+    }),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
+    fileFilter: (req, file, callback) => {
+        if (!allowedImageTypes[file.mimetype]) {
+            return callback(
+                new Error("Upload a JPG, PNG or WebP image.")
+            );
+        }
+
+        callback(null, true);
+    }
+});
 
 if (!process.env.ADMIN_USERNAME ||
     !process.env.ADMIN_PASSWORD ||
@@ -150,7 +202,26 @@ function requireAdmin(req, res, next) {
     next();
 }
 
+// Upload a certificate image (admin only)
+app.post("/api/certificates/upload-image", requireAdmin, (req, res) => {
+    certificateUpload.single("image")(req, res, (error) => {
+        if (error) {
+            return res.status(400).json({
+                error: error.message || "Image upload failed."
+            });
+        }
 
+        if (!req.file) {
+            return res.status(400).json({
+                error: "Please select a certificate image."
+            });
+        }
+
+        return res.status(201).json({
+            image_url: `/uploads/certificates/${req.file.filename}`
+        });
+    });
+});
 
 // PASTE YOUR CONTACT API HERE
 

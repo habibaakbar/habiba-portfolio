@@ -357,6 +357,7 @@ function renderSkills(skills) {
     });
 }
 
+
 function renderCertificates(certificates) {
     const grid = document.getElementById("certificates-grid");
     if (!grid) return;
@@ -372,8 +373,19 @@ function renderCertificates(certificates) {
         const card = document.createElement("article");
         card.className = "certificate-card";
 
+        // Display uploaded certificate image
+        if (certificate.image_url) {
+            const image = document.createElement("img");
+            image.className = "certificate-image";
+            image.src = certificate.image_url;
+            image.alt = `${certificate.title || "Certificate"} image`;
+            image.loading = "lazy";
+
+            card.appendChild(image);
+        }
+
         const title = document.createElement("h3");
-        title.textContent = certificate.title;
+        title.textContent = certificate.title || "";
         card.appendChild(title);
 
         const organization = document.createElement("p");
@@ -386,12 +398,19 @@ function renderCertificates(certificates) {
             card.appendChild(date);
         }
 
+        if (certificate.description) {
+            const description = document.createElement("p");
+            description.textContent = certificate.description;
+            card.appendChild(description);
+        }
+
         if (certificate.credential_url) {
             const link = document.createElement("a");
             link.href = certificate.credential_url;
             link.target = "_blank";
             link.rel = "noopener noreferrer";
-            link.textContent = "Verify Certificate ↗";
+            link.className = "project-link";
+            link.textContent = "View Credential ↗";
             card.appendChild(link);
         }
 
