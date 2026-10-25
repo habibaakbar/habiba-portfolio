@@ -187,31 +187,25 @@
                 <h2>Featured Projects</h2>
                 <p>Some applications and tools I have built.</p>
             </div>
-            
-<div class="project-filters">
-    <label class="project-filter-field" for="project-search">
-        <span>Search projects</span>
-        <input
-            type="search"
-            id="project-search"
-            placeholder="Search name, technology..."
-            autocomplete="off"
-        >
-    </label>
 
-    <label class="project-filter-field" for="project-category-filter">
-        <span>Filter by category</span>
-        <select id="project-category-filter">
-            <option value="">All categories</option>
-        </select>
-    </label>
-</div>
+            <div class="project-filters">
+                <label class="project-filter-field" for="project-search">
+                    <span>Search projects</span>
+                    <input type="search" id="project-search" placeholder="Search name, technology..."
+                        autocomplete="off">
+                </label>
 
-<p
-    id="project-results-count"
-    class="project-results-count"
-    aria-live="polite"
-></p>
+                <label class="project-filter-field" for="project-category-filter">
+                    <span>Filter by category</span>
+                    <select id="project-category-filter">
+                        <option value="">All categories</option>
+                    </select>
+                </label>
+            </div>
+            <button type="button" id="clear-project-filters" class="clear-project-filters">
+                Clear Filters ↺
+            </button>
+            <p id="project-results-count" class="project-results-count" aria-live="polite"></p>
 
             <div class="projects-grid" id="projects-grid">
 
@@ -406,17 +400,17 @@
 
 
 
-<section id="certificates" class="certificates-section">
-    <div class="section-heading">
-        <p class="section-label">MY ACHIEVEMENTS</p>
-        <h2>Certificates & Certifications</h2>
-        <p>Courses, training and achievements in AI and software development.</p>
-    </div>
+        <section id="certificates" class="certificates-section">
+            <div class="section-heading">
+                <p class="section-label">MY ACHIEVEMENTS</p>
+                <h2>Certificates & Certifications</h2>
+                <p>Courses, training and achievements in AI and software development.</p>
+            </div>
 
-    <div class="certificates-grid" id="certificates-grid">
-        <p class="certificates-loading">Loading certificates...</p>
-    </div>
-</section>
+            <div class="certificates-grid" id="certificates-grid">
+                <p class="certificates-loading">Loading certificates...</p>
+            </div>
+        </section>
 
 
 
@@ -563,15 +557,9 @@
             </div>
         </footer>
 
-       <button
-    id="scroll-top-btn"
-    class="scroll-top-btn"
-    type="button"
-    aria-label="Scroll to top"
-    title="Back to top"
->
-    ↑
-</button>
+        <button id="scroll-top-btn" class="scroll-top-btn" type="button" aria-label="Scroll to top" title="Back to top">
+            ↑
+        </button>
 </body>
 
 </html>

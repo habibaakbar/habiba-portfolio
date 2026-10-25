@@ -522,3 +522,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateScrollTopButton();
 });
+
+
+/* Clear project search and category filters */
+document.addEventListener("DOMContentLoaded", () => {
+    const clearButton = document.getElementById("clear-project-filters");
+    const searchInput = document.getElementById("project-search");
+    const categoryFilter = document.getElementById(
+        "project-category-filter"
+    );
+
+    if (!clearButton) {
+        console.error("Clear Filters button was not found.");
+        return;
+    }
+
+    clearButton.addEventListener("click", () => {
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+        if (categoryFilter) {
+            categoryFilter.value = "";
+        }
+
+        renderFilteredProjects();
+    });
+});

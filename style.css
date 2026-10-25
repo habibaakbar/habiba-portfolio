@@ -817,35 +817,7 @@ section {
     color: var(--text);
     border: 1px solid rgba(167, 139, 250, 0.6);
 }
-
 /* 3D project cards */
-
-.project-card {
-    background: linear-gradient(
-        145deg,
-        #142039,
-        #0d1527
-    );
-    color: var(--text);
-    border: 1px solid rgba(167, 139, 250, 0.16);
-    border-radius: 18px;
-    transform: perspective(1000px) translateZ(0);
-    transform-style: preserve-3d;
-    transition: transform 0.4s ease,
-                border-color 0.4s ease,
-                box-shadow 0.4s ease;
-}
-
-.project-card:hover {
-    transform: perspective(1000px)
-               translateY(-10px)
-               rotateX(3deg)
-               rotateY(-3deg);
-    border-color: rgba(167, 139, 250, 0.7);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3),
-                0 0 25px rgba(99, 91, 255, 0.12);
-}
-
 .project-card p,
 .project-card .project-description {
     color: var(--muted);
@@ -3819,4 +3791,34 @@ body[data-theme="light"] .hero-buttons .btn:focus-visible {
     .project-results-count {
         margin-bottom: 18px;
     }
+}
+
+/* Clear project filters button */
+.clear-project-filters {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    border: 1px solid #635bff;
+    border-radius: 8px;
+    background: transparent;
+    color: #635bff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.clear-project-filters:hover {
+    background: #635bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.clear-project-filters:focus-visible {
+    outline: 3px solid #b8a7ff;
+    outline-offset: 3px;
 }
