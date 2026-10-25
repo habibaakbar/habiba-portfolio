@@ -3,6 +3,8 @@ console.log("Habiba's portfolio is running!");
 
 const themeToggle = document.getElementById("theme-toggle");
 
+
+
 if (themeToggle) {
     const savedTheme = localStorage.getItem("portfolio-theme");
     const preferredTheme = window.matchMedia(
@@ -30,6 +32,46 @@ if (themeToggle) {
         applyTheme(currentTheme === "dark" ? "light" : "dark");
     });
 }
+
+/* Scroll progress indicator */
+document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("scroll-progress");
+
+    if (!progressBar) return;
+
+    let updateScheduled = false;
+
+    function updateScrollProgress() {
+        const scrollableHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        const progress = scrollableHeight > 0
+            ? (window.scrollY / scrollableHeight) * 100
+            : 0;
+
+        progressBar.style.width =
+            `${Math.min(100, Math.max(0, progress))}%`;
+
+        updateScheduled = false;
+    }
+
+    function scheduleUpdate() {
+        if (updateScheduled) return;
+
+        updateScheduled = true;
+        window.requestAnimationFrame(updateScrollProgress);
+    }
+
+    window.addEventListener("scroll", scheduleUpdate, {
+        passive: true
+    });
+
+    window.addEventListener("resize", scheduleUpdate);
+
+    updateScrollProgress();
+});
+
+
 
 const menuToggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
@@ -256,15 +298,34 @@ function renderFilteredProjects() {
 
         const url = project.live_url || project.github_url;
 
-        if (url) {
-            const link = document.createElement("a");
-            link.className = "project-link";
-            link.href = url;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.textContent = "View Project ↗";
-            card.appendChild(link);
+
+        const projectLinks = document.createElement("div");
+        projectLinks.className = "project-links";
+
+        if (project.live_url) {
+            const liveLink = document.createElement("a");
+            liveLink.className = "project-link";
+            liveLink.href = project.live_url;
+            liveLink.target = "_blank";
+            liveLink.rel = "noopener noreferrer";
+            liveLink.textContent = "Live Demo ↗";
+            projectLinks.appendChild(liveLink);
         }
+
+        if (project.github_url) {
+            const githubLink = document.createElement("a");
+            githubLink.className = "project-link";
+            githubLink.href = project.github_url;
+            githubLink.target = "_blank";
+            githubLink.rel = "noopener noreferrer";
+            githubLink.textContent = "GitHub ↗";
+            projectLinks.appendChild(githubLink);
+        }
+
+        if (projectLinks.children.length > 0) {
+            card.appendChild(projectLinks);
+        }
+
 
         grid.appendChild(card);
     });
@@ -384,28 +445,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const responseText = await response.text();
 
-let result = {};
+            let result = {};
 
-try {
-    result = responseText ? JSON.parse(responseText) : {};
-} catch {
-    throw new Error(
-        `Invalid server response (HTTP ${response.status}): ` +
-        (responseText || "Empty response")
-    );
-}
+            try {
+                result = responseText ? JSON.parse(responseText) : {};
+            } catch {
+                throw new Error(
+                    `Invalid server response (HTTP ${response.status}): ` +
+                    (responseText || "Empty response")
+                );
+            }
 
-if (!response.ok) {
-    throw new Error(
-        result.error ||
-        result.message ||
-        `Request failed with status ${response.status}`
-    );
-}
+            if (!response.ok) {
+                throw new Error(
+                    result.error ||
+                    result.message ||
+                    `Request failed with status ${response.status}`
+                );
+            }
 
-if (!responseText) {
-    throw new Error("Server returned an empty response.");
-}
+            if (!responseText) {
+                throw new Error("Server returned an empty response.");
+            }
 
             if (!responseText) {
                 throw new Error(
@@ -555,6 +616,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+/* Contact message character counter */
+document.addEventListener("DOMContentLoaded", () => {
+    const messageField = document.getElementById("contact-message");
+    const counter = document.getElementById("message-character-count");
+
+    if (!messageField || !counter) return;
+
+    const maxLength = Number(messageField.getAttribute("maxlength")) || 5000;
+
+    function updateCharacterCount() {
+        const currentLength = messageField.value.length;
+
+        counter.textContent =
+            `${currentLength} / ${maxLength} characters`;
+
+        counter.classList.toggle(
+            "near-limit",
+            currentLength >= maxLength * 0.9
+        );
+    }
+
+    messageField.addEventListener("input", updateCharacterCount);
+
+    const form = messageField.closest("form");
+
+    if (form) {
+        form.addEventListener("reset", () => {
+            requestAnimationFrame(updateCharacterCount);
+        });
+    }
+
+    updateCharacterCount();
+});
+
 /* Back to Top button functionality */
 document.addEventListener("DOMContentLoaded", () => {
     const scrollTopButton = document.getElementById("scroll-top-btn");
@@ -606,5 +702,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         renderFilteredProjects();
+    });
+});
+
+/* Reveal sections as they enter the viewport */
+document.addEventListener("DOMContentLoaded", () => {
+    if (
+        !("IntersectionObserver" in window) ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+        return;
+    }
+
+    const sections = document.querySelectorAll("section[id]");
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries, currentObserver) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    currentObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.08
+        }
+    );
+
+    sections.forEach((section) => {
+        section.classList.add("reveal-section");
+        observer.observe(section);
     });
 });

@@ -5,14 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Habiba Akbar | AI Engineer & Web Developer</title>
+
+    <meta name="description"
+        content="Explore Habiba Akbar's portfolio featuring AI projects, web development, intelligent automation, technical skills, and certificates.">
+
+    <meta name="author" content="Habiba Akbar">
+    <meta name="theme-color" content="#0d1527">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Habiba Akbar | AI & Web Developer Portfolio">
+    <meta property="og:description"
+        content="Explore my AI projects, web applications, technical skills, and professional journey.">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Habiba Akbar | AI & Web Developer Portfolio">
+    <meta name="twitter:description" content="AI projects, web development, intelligent automation, and more.">
+
+
+    <title>Habiba Akbar | AI & Web Developer Portfolio</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
-
+<div id="scroll-progress" aria-hidden="true"></div>
     <header>
 
         <nav class="navbar">
@@ -514,6 +531,9 @@
                             <textarea id="contact-message" name="message"
                                 placeholder="Tell me about your project or idea..." rows="5" maxlength="5000"
                                 required></textarea>
+                            <p id="message-character-count" class="message-character-count" aria-live="polite">
+                                0 / 5000 characters
+                            </p>
                         </div>
 
                         <button type="submit" class="contact-submit" id="send-message-btn">

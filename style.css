@@ -17,6 +17,49 @@ body {
 }
 
 
+/* Page scroll progress indicator */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    z-index: 2000;
+    pointer-events: none;
+    background: linear-gradient(90deg, #635bff, #22d3ee);
+    transition: width 0.08s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #scroll-progress {
+        transition: none;
+    }
+}
+
+/* Subtle reveal animation for page sections */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.reveal-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-section,
+    .reveal-section.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 
 
 
@@ -533,6 +576,28 @@ footer {
     color: #4036d9;
 }
 
+/* Separate links for live demos and GitHub repositories */
+.project-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.project-links .project-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.project-links .project-link:hover {
+    transform: translateY(-2px);
+}
+
 @media (max-width: 1000px) {
     .projects-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -629,6 +694,20 @@ line-height: 1.2;
     margin-top: 5px;
     font-size: 12px;
     color: var(--purple, #635bff);
+}
+
+/* Contact message character counter */
+.message-character-count {
+    margin: -10px 0 18px;
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted, #647084);
+    transition: color 0.2s ease;
+}
+
+.message-character-count.near-limit {
+    color: #d97706;
+    font-weight: 600;
 }
 
 
@@ -1412,6 +1491,30 @@ body[data-theme="light"] .skill-item:hover {
     font-size: 13px;
     margin: 0;
 }
+
+/* Subtle hover animation for skill cards */
+.skill-card {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99, 91, 255, 0.5);
+    box-shadow: 0 12px 28px rgba(99, 91, 255, 0.12);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .skill-card,
+    .skill-card:hover {
+        transition: none;
+        transform: none;
+    }
+}
+
 
 /* ========================================
    LIGHT THEME
@@ -3440,6 +3543,7 @@ body[data-theme="light"] #contact .contact-socials a:hover {
 .certificate-card a:hover {
     text-decoration: underline;
 }
+
 
 @media (max-width: 600px) {
     .certificates-section {
