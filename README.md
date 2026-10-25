@@ -95,7 +95,7 @@ Use your own API key locally and configure secrets securely in your hosting prov
 ### 4. Start the backend
 
 Run the start command configured in `backend/package.json`. If the project does not define a start script, check the server entry point and run it using Node.js.
-
+npm --prefix backend start
 ### 5. Open the frontend
 
 Open `index.html` using VS Code Live Server or another local web server. Backend-dependent features require the backend to be running and correctly configured.
